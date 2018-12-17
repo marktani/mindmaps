@@ -3,7 +3,10 @@ from . import db
 
 
 from flask import Flask, request
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
@@ -15,8 +18,6 @@ def hello():
 def addPair():
     data = request.get_json()
 
-    print(data)
-
     # create words
     aId = db.addWord(data['value1'], data['language1'])
     bId = db.addWord(data['value2'], data['language2'])
@@ -25,3 +26,12 @@ def addPair():
     pairId = db.addPair(aId, bId)
 
     return json.dumps({'id': pairId})
+
+
+@app.route("/get-pairs", methods=['GET'])
+def getPairs():
+    # TODO: handle bad data
+    pairs = db.getPairs()
+    pairs2 = map(lambda (a, b): {'value1': a, 'value2': b}, pairs)
+    print(pairs2)
+    return json.dumps({'pairs': pairs2})

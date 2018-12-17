@@ -32,3 +32,21 @@ class DB:
         conn.close()
 
         return id
+
+    def getPairs(self):
+        conn = self._get_conn()
+
+        c = conn.cursor()
+        c.execute(
+            """
+                SELECT word1.value as value1, word2.value as value2 FROM _Pair
+                INNER JOIN Word as word1 on word1.id = _Pair.aId
+                INNER JOIN Word as word2 on word2.id = _Pair.bId
+            """
+        )
+
+        rows = c.fetchall()
+
+        conn.close()
+
+        return rows
