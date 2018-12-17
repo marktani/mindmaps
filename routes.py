@@ -32,6 +32,6 @@ def addPair():
 def getPairs():
     # TODO: handle bad data
     pairs = db.getPairs()
-    pairs2 = map(lambda (a, b): {'value1': a, 'value2': b}, pairs)
+    pairs2 = map(lambda (id, a, b): {'id': id, 'value1': a, 'value2': b}, pairs)
     print(pairs2)
     return json.dumps({'pairs': pairs2})
