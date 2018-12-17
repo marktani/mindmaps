@@ -62,14 +62,13 @@ class App extends Component {
             })
               .then(r => r.json())
               .then(data => {
-                console.log('hi', data)
                 if (data.id) {
                   this.setState({
                     status: 'Added new word pair',
                     english: '',
                     farsi: '',
                     isLoading: false,
-                    pairs: [...this.state.pairs, {value1: this.state.english, value2: this.state.farsi}],
+                    pairs: [...this.state.pairs, {id: '-', value1: this.state.english, value2: this.state.farsi}],
                   })
                 } else {
                   this.setState({
@@ -97,7 +96,7 @@ class App extends Component {
         <div>
           {this.state.pairs.map((pair, index) => (
             <div key={index}>
-              {pair.value1} - {pair.value2}
+              [{pair.id}] {pair.value1} - {pair.value2}
             </div>
           ))}
         </div>
